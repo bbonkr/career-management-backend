@@ -5,7 +5,7 @@ namespace CareerManagement.Entities
     /// <summary>
     /// 기술
     /// </summary>
-    public class Tech
+    public class Skill
     {
         /// <summary>
         /// 식별자
@@ -22,7 +22,7 @@ namespace CareerManagement.Entities
         /// <summary>
         /// 기술 항목
         /// </summary>
-        public virtual IList<TechItem> Items { get; set; }
+        public virtual IList<SkillItem> Items { get; set; }
         /// <summary>
         /// 사용자
         /// </summary>

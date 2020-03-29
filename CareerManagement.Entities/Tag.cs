@@ -1,4 +1,6 @@
-﻿namespace CareerManagement.Entities
+﻿using System.Collections.Generic;
+
+namespace CareerManagement.Entities
 {
     /// <summary>
     /// 태그
@@ -13,5 +15,7 @@
         /// 태그
         /// </summary>
         public string Name { get; set; }
+
+        public virtual IList<PortfolioTag> Portfolios { get; set; }
     }
 }

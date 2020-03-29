@@ -19,7 +19,7 @@ namespace CareerManagement.Entities
         /// <summary>
         /// 비밀번호
         /// </summary>
-        public string Password { get; set; }
+        public string Secret { get; set; }
 
         /// <summary>
         /// 만료시각
@@ -32,14 +32,14 @@ namespace CareerManagement.Entities
         public int RetryCount { get; set; }
 
         /// <summary>
-        /// 계정 잠김
+        /// 로그인 잠김
         /// </summary>
         public bool IsLocked { get; set; }
 
         /// <summary>
-        /// 계정 잠김 시각
+        /// 로그인 잠김 시각
         /// </summary>
-        public DateTimeOffset LockedAt { get; set; }
+        public DateTimeOffset? LockedAt { get; set; }
 
         /// <summary>
         /// 사용자
