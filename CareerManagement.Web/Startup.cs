@@ -48,6 +48,8 @@ namespace CareerManagement.Web
                 using (var db = scope.ServiceProvider.GetService<DataContext>())
                 {
                     db.Database.Migrate();
+
+                    Console.WriteLine("데이터베이스 마이그레이션 완료");
                 }
             }
 

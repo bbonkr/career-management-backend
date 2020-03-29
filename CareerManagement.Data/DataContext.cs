@@ -2,6 +2,7 @@
 using CareerManagement.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Reflection;
 
 namespace CareerManagement.Data
 {
@@ -29,13 +30,22 @@ namespace CareerManagement.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            foreach (var typeConfiguration in this.GetType().Assembly.GetTypes())
-            {
-                if (typeConfiguration.IsAssignableFrom(typeof(IEntityTypeConfigurationProvider)))
-                {
-                    ((IEntityTypeConfigurationProvider)typeConfiguration).Apply(modelBuilder);
-                }
-            }
+            modelBuilder.ApplyConfiguration(new CareerLinkTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CareerTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new EducationLinkTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new EducationTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new LinkTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PortfolioFeatureTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PortfolioLinkTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PortfolioTagTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PortfolioTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProfileLinkTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProfileTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SkillItemTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SkillTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new TagTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserLoginTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserTypeConfiguratoin());
         }
     }
 }
