@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CareerManagement.Data.Configurations
 {
-    public class CareerTypeConfiguration : IEntityTypeConfiguration<Career>
+    public class CareerTypeConfiguration : IEntityTypeConfiguration<Career>, IEntityTypeConfigurationProvider
     {
         public void Configure(EntityTypeBuilder<Career> b)
         {
@@ -59,5 +59,10 @@ namespace CareerManagement.Data.Configurations
                 .HasForeignKey(x => x.UserId);
 
         }
-    }
+        
+        public void Apply(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(this);
+        }
+    }   
 }

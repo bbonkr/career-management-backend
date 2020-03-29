@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CareerManagement.Data.Configurations
 {
-    public class CareerLinkTypeConfiguration : IEntityTypeConfiguration<CareerLink>
+    public class CareerLinkTypeConfiguration : IEntityTypeConfiguration<CareerLink>, IEntityTypeConfigurationProvider
     {
         public void Configure(EntityTypeBuilder<CareerLink> b)
         {
@@ -34,6 +34,11 @@ namespace CareerManagement.Data.Configurations
                 .HasOne(x => x.Link)
                 .WithMany(x => x.Careers)
                 .HasForeignKey(x => x.LinkId);
+        }
+
+        public void Apply(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(this);
         }
     }
 }

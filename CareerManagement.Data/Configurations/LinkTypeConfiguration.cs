@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CareerManagement.Data.Configurations
 {
-    public class EducationTypeConfiguration : IEntityTypeConfiguration<Education>, IEntityTypeConfigurationProvider
+    public class LinkTypeConfiguration : IEntityTypeConfiguration<Link>, IEntityTypeConfigurationProvider
     {
-        public void Configure(EntityTypeBuilder<Education> b)
+        public void Configure(EntityTypeBuilder<Link> b)
         {
-            b.ToTable("Education");
-
+            b.ToTable("Link");
             b.HasKey(x => x.Id);
 
             b.Property(x => x.Id)
@@ -17,34 +16,26 @@ namespace CareerManagement.Data.Configurations
                 .HasMaxLength(StringLength.Identifier)
                 .HasComment("식별자")
                 ;
-
-            b
-                .Property(x => x.UserId)
-                .IsRequired()
-                .HasMaxLength(StringLength.Identifier)
-                .HasComment("사용자 식별자")
-                ;
-
             b.Property(x => x.Title)
                 .IsRequired()
                 .HasMaxLength(StringLength.Name)
                 .HasComment("제목")
                 ;
-
-            b.Property(x => x.State)
+            b.Property(x => x.Icon)
                 .IsRequired(false)
                 .HasMaxLength(StringLength.Name)
-                .HasComment("상태")
+                .HasComment("아이콘")
                 ;
-
-            b.Property(x => x.Description)
+            b.Property(x => x.Target)
                 .IsRequired(false)
-                .HasMaxLength(StringLength.Note)
-                .HasComment("설명")
+                .HasMaxLength(StringLength.Name)
+                .HasComment("링크 대상")
                 ;
 
-            b.HasOne(x => x.User).WithMany(x => x.Educations).HasForeignKey(x => x.UserId);
-            b.HasMany(x => x.Links).WithOne(x => x.Education);
+            b.HasMany(x => x.Careers).WithOne(x => x.Link);
+            b.HasMany(x => x.Educations).WithOne(x => x.Link);
+            b.HasMany(x => x.Profiles).WithOne(x => x.Link);
+            b.HasMany(x => x.Portfolios).WithOne(x => x.Link);
         }
 
         public void Apply(ModelBuilder modelBuilder)

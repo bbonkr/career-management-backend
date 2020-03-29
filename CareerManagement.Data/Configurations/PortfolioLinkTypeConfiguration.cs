@@ -4,35 +4,32 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CareerManagement.Data.Configurations
 {
-    public class EducationLinkTypeConfiguration : IEntityTypeConfiguration<EducationLink>, IEntityTypeConfigurationProvider
+    public class PortfolioLinkTypeConfiguration : IEntityTypeConfiguration<PortfolioLink>, IEntityTypeConfigurationProvider
     {
-        public void Configure(EntityTypeBuilder<EducationLink> b)
+        public void Configure(EntityTypeBuilder<PortfolioLink> b)
         {
-            b.ToTable("EducationLink");
-            b.HasKey(x => new { x.EducationId, x.LinkId });
+            b.ToTable("PortfolioLink");
+            b.HasKey(x => new { x.PortfolioId, x.LinkId });
 
-            b.Property(x => x.EducationId)
+            b.Property(x => x.PortfolioId)
                 .IsRequired()
                 .HasMaxLength(StringLength.Identifier)
-                .HasComment("교육 식별자")
+                .HasComment("포트폴리오 식별자")
                 ;
-
             b.Property(x => x.LinkId)
                 .IsRequired()
                 .HasMaxLength(StringLength.Identifier)
-                .HasComment("링크 식별자");
+                .HasComment("링크 식별자")
+                ;
 
-            b
-                .HasOne(x => x.Education)
+            b.HasOne(x => x.Portfolio)
                 .WithMany(x => x.Links)
-                .HasForeignKey(x => x.EducationId)
+                .HasForeignKey(x => x.PortfolioId)
                 .OnDelete(DeleteBehavior.Cascade);
-            b
-                .HasOne(x => x.Link)
-                .WithMany(x => x.Educations)
+            b.HasOne(x => x.Link)
+                .WithMany(x => x.Portfolios)
                 .HasForeignKey(x => x.LinkId)
                 .OnDelete(DeleteBehavior.Cascade);
-
         }
 
         public void Apply(ModelBuilder modelBuilder)

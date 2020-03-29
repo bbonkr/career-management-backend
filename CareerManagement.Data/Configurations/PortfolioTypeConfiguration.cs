@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CareerManagement.Data.Configurations
 {
-    public class EducationTypeConfiguration : IEntityTypeConfiguration<Education>, IEntityTypeConfigurationProvider
+    public class PortfolioTypeConfiguration : IEntityTypeConfiguration<Portfolio>, IEntityTypeConfigurationProvider
     {
-        public void Configure(EntityTypeBuilder<Education> b)
+        public void Configure(EntityTypeBuilder<Portfolio> b)
         {
-            b.ToTable("Education");
-
+            b.ToTable("Portfolio");
             b.HasKey(x => x.Id);
 
             b.Property(x => x.Id)
@@ -17,34 +16,32 @@ namespace CareerManagement.Data.Configurations
                 .HasMaxLength(StringLength.Identifier)
                 .HasComment("식별자")
                 ;
-
-            b
-                .Property(x => x.UserId)
+            b.Property(x => x.UserId)
                 .IsRequired()
                 .HasMaxLength(StringLength.Identifier)
                 .HasComment("사용자 식별자")
                 ;
-
             b.Property(x => x.Title)
                 .IsRequired()
                 .HasMaxLength(StringLength.Name)
                 .HasComment("제목")
                 ;
-
             b.Property(x => x.State)
-                .IsRequired(false)
+                .IsRequired()
                 .HasMaxLength(StringLength.Name)
                 .HasComment("상태")
                 ;
-
-            b.Property(x => x.Description)
+            b.Property(x => x.Descriptoin)
                 .IsRequired(false)
                 .HasMaxLength(StringLength.Note)
-                .HasComment("설명")
-                ;
+                .HasComment("설명");
 
-            b.HasOne(x => x.User).WithMany(x => x.Educations).HasForeignKey(x => x.UserId);
-            b.HasMany(x => x.Links).WithOne(x => x.Education);
+            b.HasMany(x => x.Features).WithOne(x => x.Portfolio);
+            b.HasMany(x => x.Tags).WithOne(x => x.Portfolio);
+            b.HasMany(x => x.Links).WithOne(x => x.Portfolio);
+            b.HasOne(x => x.User).WithMany(x => x.Portfolios)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Cascade);                
         }
 
         public void Apply(ModelBuilder modelBuilder)
