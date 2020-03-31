@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using CareerManagement.Web.Stores;
 
 namespace CareerManagement.Web
 {
@@ -27,6 +28,8 @@ namespace CareerManagement.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
+
             services.AddDbContext<DataContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"), sqlServerOptions =>
                 {
@@ -34,6 +37,17 @@ namespace CareerManagement.Web
                 });
             });
 
+            services.AddTransient<CareerStore>();
+            
+            services.AddHealthChecks();
+
+            services.AddCors(options => {
+                var defaultPolicy = new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy();
+
+                defaultPolicy.Origins.Add("localhost");
+
+                options.AddPolicy("Default", defaultPolicy);
+            });
             services.AddControllers();
         }
 
@@ -52,9 +66,10 @@ namespace CareerManagement.Web
                     Console.WriteLine("데이터베이스 마이그레이션 완료");
                 }
             }
+            app.UseCors();
 
             app.UseHttpsRedirection();
-
+            app.UseHealthChecks(new Microsoft.AspNetCore.Http.PathString("/health"));
             app.UseRouting();
 
             app.UseAuthorization();
