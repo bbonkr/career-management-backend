@@ -31,10 +31,16 @@ namespace CareerManagement.Data.Configurations
                 .HasMaxLength(StringLength.Name)
                 .HasComment("상태")
                 ;
+            b.Property(x => x.Period)
+                .IsRequired(false)
+                .HasMaxLength(StringLength.Name)
+                .HasComment("기간")
+                ;
             b.Property(x => x.Descriptoin)
                 .IsRequired(false)
                 .HasMaxLength(StringLength.Note)
-                .HasComment("설명");
+                .HasComment("설명")
+                ;
 
             b.HasMany(x => x.Features).WithOne(x => x.Portfolio);
             b.HasMany(x => x.Tags).WithOne(x => x.Portfolio);

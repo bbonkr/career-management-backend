@@ -4,14 +4,16 @@ using CareerManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CareerManagement.Data.SqlServer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200401072127_Add_Period")]
+    partial class Add_Period
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,11 +188,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
                         .HasColumnType("nvarchar(2000)")
                         .HasComment("설명")
                         .HasMaxLength(2000);
-
-                    b.Property<string>("Period")
-                        .HasColumnType("nvarchar(200)")
-                        .HasComment("기간")
-                        .HasMaxLength(200);
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -446,7 +443,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
                         .HasComment("만료시각")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 7, 1, 9, 16, 31, 79, DateTimeKind.Unspecified).AddTicks(8848), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 7, 1, 7, 21, 27, 100, DateTimeKind.Unspecified).AddTicks(3138), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsLocked")
                         .ValueGeneratedOnAdd()

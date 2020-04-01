@@ -40,7 +40,11 @@ namespace CareerManagement.Data.Configurations
                 .HasMaxLength(StringLength.Name)
                 .HasComment("상태")
                 ;
-
+            b.Property(x => x.Period)
+                .IsRequired(false)
+                .HasMaxLength(StringLength.Name)
+                .HasComment("기간")
+                ;
             b
                 .Property(x => x.Description)
                 .HasMaxLength(StringLength.Note)

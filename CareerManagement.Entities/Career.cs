@@ -27,6 +27,10 @@ namespace CareerManagement.Entities
         /// </summary>
         public string State { get; set; }
         /// <summary>
+        /// 기간
+        /// </summary>
+        public string Period { get; set; }
+        /// <summary>
         /// 설명
         /// </summary>
         public string Description { get; set; }

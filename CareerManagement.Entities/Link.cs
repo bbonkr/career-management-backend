@@ -28,6 +28,11 @@ namespace CareerManagement.Entities
         /// </summary>
         public string Target { get; set; }
 
+        /// <summary>
+        /// 링크 URL
+        /// </summary>
+        public string Url { get; set; }
+
         public virtual IList<CareerLink> Careers { get; set; }
 
         public virtual IList<EducationLink> Educations { get; set; }

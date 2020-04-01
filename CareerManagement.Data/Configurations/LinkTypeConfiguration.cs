@@ -26,6 +26,11 @@ namespace CareerManagement.Data.Configurations
                 .HasMaxLength(StringLength.Name)
                 .HasComment("아이콘")
                 ;
+            b.Property(x => x.Url)
+                .IsRequired()
+                .HasMaxLength(StringLength.Url)
+                .HasComment("링크 URL")
+                ;
             b.Property(x => x.Target)
                 .IsRequired(false)
                 .HasMaxLength(StringLength.Name)
