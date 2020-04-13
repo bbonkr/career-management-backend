@@ -68,11 +68,11 @@ namespace CareerManagement.Web
                     Console.WriteLine(">>> 데이터베이스 마이그레이션 완료");
 
                     var myData=scope.ServiceProvider.GetService<MyData>();
-                    if (myData.IsExists())
-                    {
-                        myData.Clear();
-                        Console.WriteLine(">>> 데이터 초기화 완료");
-                    }
+                    //if (myData.IsExists())
+                    //{
+                    //    myData.Clear();
+                    //    Console.WriteLine(">>> 데이터 초기화 완료");
+                    //}
 
                     if (!myData.IsExists())
                     {
