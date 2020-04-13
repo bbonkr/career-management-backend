@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CareerManagement.Data.SqlServer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200401072127_Add_Period")]
-    partial class Add_Period
+    [Migration("20200413044241_IdGenerateOnAdd")]
+    partial class IdGenerateOnAdd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,19 +66,43 @@ namespace CareerManagement.Data.SqlServer.Migrations
 
             modelBuilder.Entity("CareerManagement.Entities.CareerLink", b =>
                 {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(36)")
+                        .HasComment("식별자")
+                        .HasMaxLength(36);
+
                     b.Property<string>("CareerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("경력 식별자")
                         .HasMaxLength(36);
 
-                    b.Property<string>("LinkId")
-                        .HasColumnType("nvarchar(36)")
-                        .HasComment("링크 식별자")
-                        .HasMaxLength(36);
+                    b.Property<string>("Href")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasComment("링크 주소")
+                        .HasMaxLength(500);
 
-                    b.HasKey("CareerId", "LinkId");
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("아이콘")
+                        .HasMaxLength(200);
 
-                    b.HasIndex("LinkId");
+                    b.Property<string>("Target")
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("링크 대상")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("링크 제목")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CareerId");
 
                     b.ToTable("CareerLink");
                 });
@@ -86,6 +110,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.Education", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -126,29 +151,23 @@ namespace CareerManagement.Data.SqlServer.Migrations
 
             modelBuilder.Entity("CareerManagement.Entities.EducationLink", b =>
                 {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(36)")
+                        .HasComment("식별자")
+                        .HasMaxLength(36);
+
                     b.Property<string>("EducationId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("교육 식별자")
                         .HasMaxLength(36);
 
-                    b.Property<string>("LinkId")
-                        .HasColumnType("nvarchar(36)")
-                        .HasComment("링크 식별자")
-                        .HasMaxLength(36);
-
-                    b.HasKey("EducationId", "LinkId");
-
-                    b.HasIndex("LinkId");
-
-                    b.ToTable("EducationLink");
-                });
-
-            modelBuilder.Entity("CareerManagement.Entities.Link", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(36)")
-                        .HasComment("식별자")
-                        .HasMaxLength(36);
+                    b.Property<string>("Href")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasComment("링크 주소")
+                        .HasMaxLength(500);
 
                     b.Property<string>("Icon")
                         .HasColumnType("nvarchar(200)")
@@ -163,23 +182,20 @@ namespace CareerManagement.Data.SqlServer.Migrations
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(200)")
-                        .HasComment("제목")
+                        .HasComment("링크 제목")
                         .HasMaxLength(200);
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(500)")
-                        .HasComment("링크 URL")
-                        .HasMaxLength(500);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Link");
+                    b.HasIndex("EducationId");
+
+                    b.ToTable("EducationLink");
                 });
 
             modelBuilder.Entity("CareerManagement.Entities.Portfolio", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -188,6 +204,11 @@ namespace CareerManagement.Data.SqlServer.Migrations
                         .HasColumnType("nvarchar(2000)")
                         .HasComment("설명")
                         .HasMaxLength(2000);
+
+                    b.Property<string>("Period")
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("기간")
+                        .HasMaxLength(200);
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -217,6 +238,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.PortfolioFeature", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -242,36 +264,70 @@ namespace CareerManagement.Data.SqlServer.Migrations
 
             modelBuilder.Entity("CareerManagement.Entities.PortfolioLink", b =>
                 {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(36)")
+                        .HasComment("식별자")
+                        .HasMaxLength(36);
+
+                    b.Property<string>("Href")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasComment("링크 주소")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("아이콘")
+                        .HasMaxLength(200);
+
                     b.Property<string>("PortfolioId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("포트폴리오 식별자")
                         .HasMaxLength(36);
 
-                    b.Property<string>("LinkId")
-                        .HasColumnType("nvarchar(36)")
-                        .HasComment("링크 식별자")
-                        .HasMaxLength(36);
+                    b.Property<string>("Target")
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("링크 대상")
+                        .HasMaxLength(200);
 
-                    b.HasKey("PortfolioId", "LinkId");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("링크 제목")
+                        .HasMaxLength(200);
 
-                    b.HasIndex("LinkId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("PortfolioId");
 
                     b.ToTable("PortfolioLink");
                 });
 
             modelBuilder.Entity("CareerManagement.Entities.PortfolioTag", b =>
                 {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(36)")
+                        .HasComment("식별자")
+                        .HasMaxLength(36);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("태그")
+                        .HasMaxLength(200);
+
                     b.Property<string>("PortfolioId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("포트폴리오 식별자")
                         .HasMaxLength(36);
 
-                    b.Property<string>("TagId")
-                        .HasColumnType("nvarchar(36)")
-                        .HasComment("태그 식별자")
-                        .HasMaxLength(36);
+                    b.HasKey("Id");
 
-                    b.HasKey("PortfolioId", "TagId");
+                    b.HasIndex("PortfolioId");
 
                     b.ToTable("PortfolioTag");
                 });
@@ -279,6 +335,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.Profile", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -305,19 +362,43 @@ namespace CareerManagement.Data.SqlServer.Migrations
 
             modelBuilder.Entity("CareerManagement.Entities.ProfileLink", b =>
                 {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(36)")
+                        .HasComment("식별자")
+                        .HasMaxLength(36);
+
+                    b.Property<string>("Href")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasComment("링크 주소")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("아이콘")
+                        .HasMaxLength(200);
+
                     b.Property<string>("ProfileId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("프로필 식별자")
                         .HasMaxLength(36);
 
-                    b.Property<string>("LinkId")
-                        .HasColumnType("nvarchar(36)")
-                        .HasComment("링크 식별자")
-                        .HasMaxLength(36);
+                    b.Property<string>("Target")
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("링크 대상")
+                        .HasMaxLength(200);
 
-                    b.HasKey("ProfileId", "LinkId");
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("링크 제목")
+                        .HasMaxLength(200);
 
-                    b.HasIndex("LinkId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId");
 
                     b.ToTable("ProfileLink");
                 });
@@ -325,6 +406,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.Skill", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -350,6 +432,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.SkillItem", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -379,27 +462,10 @@ namespace CareerManagement.Data.SqlServer.Migrations
                     b.ToTable("SkillItem");
                 });
 
-            modelBuilder.Entity("CareerManagement.Entities.Tag", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(36)")
-                        .HasComment("식별자")
-                        .HasMaxLength(36);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasComment("태그")
-                        .HasMaxLength(200);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tag");
-                });
-
             modelBuilder.Entity("CareerManagement.Entities.User", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -435,6 +501,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.UserLogin", b =>
                 {
                     b.Property<string>("UserId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("사용자 식별자")
                         .HasMaxLength(36);
@@ -443,7 +510,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
                         .HasComment("만료시각")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 7, 1, 7, 21, 27, 100, DateTimeKind.Unspecified).AddTicks(3138), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 7, 13, 4, 42, 41, 278, DateTimeKind.Unspecified).AddTicks(5202), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsLocked")
                         .ValueGeneratedOnAdd()
@@ -496,12 +563,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
                         .HasForeignKey("CareerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("CareerManagement.Entities.Link", "Link")
-                        .WithMany("Careers")
-                        .HasForeignKey("LinkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("CareerManagement.Entities.Education", b =>
@@ -518,12 +579,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
                     b.HasOne("CareerManagement.Entities.Education", "Education")
                         .WithMany("Links")
                         .HasForeignKey("EducationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CareerManagement.Entities.Link", "Link")
-                        .WithMany("Educations")
-                        .HasForeignKey("LinkId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -548,12 +603,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
 
             modelBuilder.Entity("CareerManagement.Entities.PortfolioLink", b =>
                 {
-                    b.HasOne("CareerManagement.Entities.Link", "Link")
-                        .WithMany("Portfolios")
-                        .HasForeignKey("LinkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CareerManagement.Entities.Portfolio", "Portfolio")
                         .WithMany("Links")
                         .HasForeignKey("PortfolioId")
@@ -565,12 +614,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
                 {
                     b.HasOne("CareerManagement.Entities.Portfolio", "Portfolio")
                         .WithMany("Tags")
-                        .HasForeignKey("PortfolioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CareerManagement.Entities.Tag", "Tag")
-                        .WithMany("Portfolios")
                         .HasForeignKey("PortfolioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -587,12 +630,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
 
             modelBuilder.Entity("CareerManagement.Entities.ProfileLink", b =>
                 {
-                    b.HasOne("CareerManagement.Entities.Link", "Link")
-                        .WithMany("Profiles")
-                        .HasForeignKey("LinkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CareerManagement.Entities.Profile", "Profile")
                         .WithMany("Links")
                         .HasForeignKey("ProfileId")

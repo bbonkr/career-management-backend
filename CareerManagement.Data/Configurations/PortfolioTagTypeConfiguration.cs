@@ -9,23 +9,29 @@ namespace CareerManagement.Data.Configurations
         public void Configure(EntityTypeBuilder<PortfolioTag> b)
         {
             b.ToTable("PortfolioTag");
-            b.HasKey(x => new { x.PortfolioId, x.TagId });
+            b.HasKey(x => x.Id);
+
+            b.Property(x => x.Id)
+                .IsRequired()
+                .HasMaxLength(StringLength.Identifier)
+                .HasComment("식별자")
+                .ValueGeneratedOnAdd()
+                ;
 
             b.Property(x => x.PortfolioId)
                 .IsRequired()
                 .HasMaxLength(StringLength.Identifier)
                 .HasComment("포트폴리오 식별자")
                 ;
-            b.Property(x => x.TagId)
-                .IsRequired()
-                .HasMaxLength(StringLength.Identifier)
-                .HasComment("태그 식별자")
-                ;
 
-            b.HasOne(x => x.Portfolio).WithMany(x => x.Tags)
-                .HasForeignKey(x => x.PortfolioId)
-                .OnDelete(DeleteBehavior.Cascade);
-            b.HasOne(x => x.Tag).WithMany(x => x.Portfolios)
+            b.Property(x => x.Name)
+                .IsRequired()
+                .HasMaxLength(StringLength.Name)
+                .HasComment("태그")
+                ;
+            
+
+            b.HasOne(x => x.Portfolio).WithMany(x => x.PortfolioTags)
                 .HasForeignKey(x => x.PortfolioId)
                 .OnDelete(DeleteBehavior.Cascade);
         }

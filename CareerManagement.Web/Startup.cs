@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using CareerManagement.Web.Stores;
+using CareerManagement.Web.Seed;
 
 namespace CareerManagement.Web
 {
@@ -38,7 +39,8 @@ namespace CareerManagement.Web
             });
 
             services.AddTransient<CareerStore>();
-            
+            services.AddTransient<MyData>();
+
             services.AddHealthChecks();
 
             services.AddCors(options => {
@@ -63,7 +65,21 @@ namespace CareerManagement.Web
                 {
                     db.Database.Migrate();
 
-                    Console.WriteLine("데이터베이스 마이그레이션 완료");
+                    Console.WriteLine(">>> 데이터베이스 마이그레이션 완료");
+
+                    var myData=scope.ServiceProvider.GetService<MyData>();
+                    if (myData.IsExists())
+                    {
+                        myData.Clear();
+                        Console.WriteLine(">>> 데이터 초기화 완료");
+                    }
+
+                    if (!myData.IsExists())
+                    {
+                        myData.Seed();
+
+                        Console.WriteLine(">>> 데이터 입력 완료");
+                    }
                 }
             }
             app.UseCors();

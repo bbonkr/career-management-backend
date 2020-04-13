@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareerManagement.Entities",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareerManagement.Services", "CareerManagement.Services\CareerManagement.Services.csproj", "{A27DBC4D-F7B7-4B44-B6F0-3EFED75D380A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CareerManagement.Models", "CareerManagement.Models\CareerManagement.Models.csproj", "{B8C053FF-1A8F-4D1E-B6DA-AA7783B1F950}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{A27DBC4D-F7B7-4B44-B6F0-3EFED75D380A}.Release|x64.Build.0 = Release|Any CPU
 		{A27DBC4D-F7B7-4B44-B6F0-3EFED75D380A}.Release|x86.ActiveCfg = Release|Any CPU
 		{A27DBC4D-F7B7-4B44-B6F0-3EFED75D380A}.Release|x86.Build.0 = Release|Any CPU
+		{B8C053FF-1A8F-4D1E-B6DA-AA7783B1F950}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8C053FF-1A8F-4D1E-B6DA-AA7783B1F950}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8C053FF-1A8F-4D1E-B6DA-AA7783B1F950}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B8C053FF-1A8F-4D1E-B6DA-AA7783B1F950}.Debug|x64.Build.0 = Debug|Any CPU
+		{B8C053FF-1A8F-4D1E-B6DA-AA7783B1F950}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B8C053FF-1A8F-4D1E-B6DA-AA7783B1F950}.Debug|x86.Build.0 = Debug|Any CPU
+		{B8C053FF-1A8F-4D1E-B6DA-AA7783B1F950}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8C053FF-1A8F-4D1E-B6DA-AA7783B1F950}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8C053FF-1A8F-4D1E-B6DA-AA7783B1F950}.Release|x64.ActiveCfg = Release|Any CPU
+		{B8C053FF-1A8F-4D1E-B6DA-AA7783B1F950}.Release|x64.Build.0 = Release|Any CPU
+		{B8C053FF-1A8F-4D1E-B6DA-AA7783B1F950}.Release|x86.ActiveCfg = Release|Any CPU
+		{B8C053FF-1A8F-4D1E-B6DA-AA7783B1F950}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

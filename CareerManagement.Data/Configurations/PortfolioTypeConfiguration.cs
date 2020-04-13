@@ -9,12 +9,16 @@ namespace CareerManagement.Data.Configurations
         public void Configure(EntityTypeBuilder<Portfolio> b)
         {
             b.ToTable("Portfolio");
+
+            b.Ignore(x => x.Tags);
+
             b.HasKey(x => x.Id);
 
             b.Property(x => x.Id)
                 .IsRequired()
                 .HasMaxLength(StringLength.Identifier)
                 .HasComment("식별자")
+                .ValueGeneratedOnAdd()
                 ;
             b.Property(x => x.UserId)
                 .IsRequired()
@@ -41,9 +45,9 @@ namespace CareerManagement.Data.Configurations
                 .HasMaxLength(StringLength.Note)
                 .HasComment("설명")
                 ;
-
+            
             b.HasMany(x => x.Features).WithOne(x => x.Portfolio);
-            b.HasMany(x => x.Tags).WithOne(x => x.Portfolio);
+            b.HasMany(x => x.PortfolioTags).WithOne(x => x.Portfolio);
             b.HasMany(x => x.Links).WithOne(x => x.Portfolio);
             b.HasOne(x => x.User).WithMany(x => x.Portfolios)
                 .HasForeignKey(x => x.UserId)

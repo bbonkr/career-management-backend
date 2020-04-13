@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CareerManagement.Data.SqlServer.Migrations
 {
-    public partial class Add_Period_Portfolio : Migration
+    public partial class AddNameOnSkill : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,36 +11,37 @@ namespace CareerManagement.Data.SqlServer.Migrations
                 name: "ExpiredAt",
                 table: "UserLogin",
                 nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 7, 1, 9, 16, 31, 79, DateTimeKind.Unspecified).AddTicks(8848), new TimeSpan(0, 0, 0, 0, 0)),
+                defaultValue: new DateTimeOffset(new DateTime(2020, 7, 13, 6, 6, 26, 558, DateTimeKind.Unspecified).AddTicks(5269), new TimeSpan(0, 0, 0, 0, 0)),
                 comment: "만료시각",
                 oldClrType: typeof(DateTimeOffset),
                 oldType: "datetimeoffset",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 7, 1, 7, 21, 27, 100, DateTimeKind.Unspecified).AddTicks(3138), new TimeSpan(0, 0, 0, 0, 0)),
+                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 7, 13, 6, 0, 48, 312, DateTimeKind.Unspecified).AddTicks(7631), new TimeSpan(0, 0, 0, 0, 0)),
                 oldComment: "만료시각");
 
             migrationBuilder.AddColumn<string>(
-                name: "Period",
-                table: "Portfolio",
+                name: "name",
+                table: "Skill",
                 maxLength: 200,
-                nullable: true,
-                comment: "기간");
+                nullable: false,
+                defaultValue: "",
+                comment: "명칭");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Period",
-                table: "Portfolio");
+                name: "name",
+                table: "Skill");
 
             migrationBuilder.AlterColumn<DateTimeOffset>(
                 name: "ExpiredAt",
                 table: "UserLogin",
                 type: "datetimeoffset",
                 nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 7, 1, 7, 21, 27, 100, DateTimeKind.Unspecified).AddTicks(3138), new TimeSpan(0, 0, 0, 0, 0)),
+                defaultValue: new DateTimeOffset(new DateTime(2020, 7, 13, 6, 0, 48, 312, DateTimeKind.Unspecified).AddTicks(7631), new TimeSpan(0, 0, 0, 0, 0)),
                 comment: "만료시각",
                 oldClrType: typeof(DateTimeOffset),
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 7, 1, 9, 16, 31, 79, DateTimeKind.Unspecified).AddTicks(8848), new TimeSpan(0, 0, 0, 0, 0)),
+                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 7, 13, 6, 6, 26, 558, DateTimeKind.Unspecified).AddTicks(5269), new TimeSpan(0, 0, 0, 0, 0)),
                 oldComment: "만료시각");
         }
     }

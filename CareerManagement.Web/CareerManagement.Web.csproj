@@ -16,6 +16,7 @@
     <ProjectReference Include="..\CareerManagement.Data.SqlServer\CareerManagement.Data.SqlServer.csproj" />
     <ProjectReference Include="..\CareerManagement.Data\CareerManagement.Data.csproj" />
     <ProjectReference Include="..\CareerManagement.Entities\CareerManagement.Entities.csproj" />
+    <ProjectReference Include="..\CareerManagement.Models\CareerManagement.Models.csproj" />
     <ProjectReference Include="..\CareerManagement.Services\CareerManagement.Services.csproj" />
   </ItemGroup>
 

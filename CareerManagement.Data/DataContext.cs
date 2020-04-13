@@ -34,7 +34,7 @@ namespace CareerManagement.Data
             modelBuilder.ApplyConfiguration(new CareerTypeConfiguration());
             modelBuilder.ApplyConfiguration(new EducationLinkTypeConfiguration());
             modelBuilder.ApplyConfiguration(new EducationTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new LinkTypeConfiguration());
+            
             modelBuilder.ApplyConfiguration(new PortfolioFeatureTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PortfolioLinkTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PortfolioTagTypeConfiguration());
@@ -43,7 +43,7 @@ namespace CareerManagement.Data
             modelBuilder.ApplyConfiguration(new ProfileTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SkillItemTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SkillTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new TagTypeConfiguration());
+            
             modelBuilder.ApplyConfiguration(new UserLoginTypeConfiguration());
             modelBuilder.ApplyConfiguration(new UserTypeConfiguratoin());
         }

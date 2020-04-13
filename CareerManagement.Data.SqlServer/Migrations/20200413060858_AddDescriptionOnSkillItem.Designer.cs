@@ -4,14 +4,16 @@ using CareerManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CareerManagement.Data.SqlServer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200413060858_AddDescriptionOnSkillItem")]
+    partial class AddDescriptionOnSkillItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -414,17 +416,17 @@ namespace CareerManagement.Data.SqlServer.Migrations
                         .HasComment("아이콘")
                         .HasMaxLength(200);
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasComment("명칭")
-                        .HasMaxLength(200);
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("사용자 식별자")
                         .HasMaxLength(36);
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasComment("명칭")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
@@ -519,7 +521,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
                         .HasComment("만료시각")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 7, 13, 6, 12, 36, 727, DateTimeKind.Unspecified).AddTicks(3494), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 7, 13, 6, 8, 58, 550, DateTimeKind.Unspecified).AddTicks(9428), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsLocked")
                         .ValueGeneratedOnAdd()

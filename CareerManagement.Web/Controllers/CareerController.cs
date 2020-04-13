@@ -1,4 +1,5 @@
 ﻿using CareerManagement.Entities;
+using CareerManagement.Models;
 using CareerManagement.Web.Stores;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -22,21 +23,30 @@ namespace CareerManagement.Web.Controllers
         }
 
         [HttpGet]
-        [Route("{username}")]
-        public async Task<string> Get(string username)
+        [Route("{username?}")]
+        public async Task<IActionResult> Get(string username)
         {
+            if (String.IsNullOrWhiteSpace(username))
+            {
+                return StatusCode(400, new HttpResponseMessageModel(400, "유효한 요청이 아닙니다."));
+            }
+
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(1));
-
                 var user = await careerStore.FindByUsername(username);
+                
+                if(user == null)
+                {
+                    return StatusCode(404, new HttpResponseMessageModel(404, "데이터를 찾을 수 없습니다."));
+                }
 
-                return username;
+                //return  Ok(user);
+                return StatusCode(200, new HttpResponseWithDataModel<User> { Data = user });
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message, ex);
-                throw ex;
+                return StatusCode(500, new HttpResponseMessageModel(500, "요청 처리중 예외가 발생했습니다."));
             }
         }
 

@@ -9,16 +9,27 @@ namespace CareerManagement.Web.Seed
 {
     public class MyData
     {
+        private readonly string username = "bbonkr";
+
         public MyData(DataContext db)
         {
             this.db = db;
         }
 
+        public bool IsExists()
+        {
+            var user = this.db.Users
+              .Where(u => u.Username == username)
+              .FirstOrDefault();
+
+            return user != null;
+        }
+
         public void Clear()
         {
             var user = this.db.Users
-                .Where(u => u.Username == "bbonkr")
-                .FirstOrDefault();
+            .Where(u => u.Username == username)
+            .FirstOrDefault();
 
             if (user != null)
             {
@@ -32,7 +43,7 @@ namespace CareerManagement.Web.Seed
             this.db.Users.Add(new User
             {
                 Name = "구본철",
-                Username = "bbonkr",
+                Username = username,
                 Email = "bbon@bbon.kr",
                 Logins = new List<UserLogin> {
                     new UserLogin{
@@ -64,21 +75,15 @@ namespace CareerManagement.Web.Seed
                     {
                         new ProfileLink
                         {
-                            Link = new Link
-                            {
                                 Title="GitHub",
-                                Url="https://github.com/bbonkr",
+                                Href="https://github.com/bbonkr",
                                 Target="_blank"
-                            }
                         },
                         new ProfileLink
                         {
-                            Link = new Link
-                            {
                                 Title="Blog",
-                                Url="https://bbon.kr",
+                                Href="https://bbon.kr",
                                 Target="_blank"
-                            }
                         }
                     }
                 },
@@ -150,7 +155,7 @@ namespace CareerManagement.Web.Seed
                                 Content="Next.js",
                             },
                             new PortfolioFeature
-                            {               
+                            {
                                 Content="Styled Component",
                             },
                             new PortfolioFeature
@@ -166,38 +171,79 @@ namespace CareerManagement.Web.Seed
                         {
                             new PortfolioLink
                             {
-                                Link = new Link
-                                {
                                     Title="데모사이트",
-                                    Url="https://blog-service.bbon.me/",
+                                    Href="https://blog-service.bbon.me/",
                                     Icon="home",
                                     Target="_blank"
-                                },
-                            },
-                            new PortfolioLink
-                            {  
-                                Link = new Link
-                                {
-                                    Title="GitHub: Blog service backend",
-                                    Url="https://github.com/bbonkr/blog-node-backend",
-                                    Icon="github",
-                                    Target="_blank"
-                                },
                             },
                             new PortfolioLink
                             {
-                                Link = new Link
-                                {
+                                    Title="GitHub: Blog service backend",
+                                    Href="https://github.com/bbonkr/blog-node-backend",
+                                    Icon="github",
+                                    Target="_blank"
+                            },
+                            new PortfolioLink
+                            {
+
                                     Title="GitHub: Blog service frontend",
-                                    Url="https://github.com/bbonkr/react-blog-frontend",
+                                    Href="https://github.com/bbonkr/react-blog-frontend",
                                     Icon="home",
                                     Target="_blank"
-                                }
+
                             }
-                        }
+                        },
+                        PortfolioTags = new List<PortfolioTag>{
+                            new PortfolioTag
+                            {
+                                Name = "react",
+                            },
+                            new PortfolioTag
+                            {
+                                Name = "node.js",
+                            },
+                            new PortfolioTag
+                            {
+                                Name = "typescript",
+                            },
+                            new PortfolioTag
+                            {
+                                Name = "frontend",
+                            },
+                            new PortfolioTag
+                            {
+                                Name = "backend",
+                            },
+                        },
                     }
                 },
+                Skills = new List<Skill> {
+                    new Skill
+                    {
+                        Name="Programming Languages",
+                        Icon="star",
+                        Items = new List<SkillItem>{
+                            new SkillItem{
+                            Name="C#",
+                            Score = 5.0F,
+                            Descriptions="~v7",
+                            },
+                            new SkillItem{
+                            Name="Javascript",
+                            Score = 4.5F,
+                            Descriptions="~es8",
+                            },
+                               new SkillItem{
+                            Name="SQL",
+                            Score = 4.0F,
+                            Descriptions="ANSI",
+                            },
+                        },
+                    },
+                },
             });
+
+            this.db.SaveChanges();
         }
 
         private readonly DataContext db;

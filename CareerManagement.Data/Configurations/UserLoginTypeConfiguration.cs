@@ -16,6 +16,7 @@ namespace CareerManagement.Data.Configurations
                 .IsRequired()
                 .HasMaxLength(StringLength.Identifier)
                 .HasComment("사용자 식별자")
+                .ValueGeneratedOnAdd()
                 ;
             b.Property(x => x.Provider)
                 .IsRequired()

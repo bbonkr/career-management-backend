@@ -8,32 +8,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Link",
-                columns: table => new
-                {
-                    Id = table.Column<string>(maxLength: 36, nullable: false, comment: "식별자"),
-                    Title = table.Column<string>(maxLength: 200, nullable: false, comment: "제목"),
-                    Icon = table.Column<string>(maxLength: 200, nullable: true, comment: "아이콘"),
-                    Target = table.Column<string>(maxLength: 200, nullable: true, comment: "링크 대상")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Link", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tag",
-                columns: table => new
-                {
-                    Id = table.Column<string>(maxLength: 36, nullable: false, comment: "식별자"),
-                    Name = table.Column<string>(maxLength: 200, nullable: false, comment: "태그")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tag", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -56,6 +30,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
                     UserId = table.Column<string>(maxLength: 36, nullable: false, comment: "사용자 식별자"),
                     Title = table.Column<string>(maxLength: 2000, nullable: false, comment: "제목; 직장명"),
                     State = table.Column<string>(maxLength: 200, nullable: false, comment: "상태"),
+                    Period = table.Column<string>(maxLength: 200, nullable: true, comment: "기간"),
                     Description = table.Column<string>(maxLength: 2000, nullable: true, comment: "설명")
                 },
                 constraints: table =>
@@ -77,7 +52,8 @@ namespace CareerManagement.Data.SqlServer.Migrations
                     UserId = table.Column<string>(maxLength: 36, nullable: false, comment: "사용자 식별자"),
                     Title = table.Column<string>(maxLength: 200, nullable: false, comment: "제목"),
                     State = table.Column<string>(maxLength: 200, nullable: true, comment: "상태"),
-                    Description = table.Column<string>(maxLength: 2000, nullable: true, comment: "설명")
+                    Description = table.Column<string>(maxLength: 2000, nullable: true, comment: "설명"),
+                    Period = table.Column<string>(maxLength: 200, nullable: true, comment: "기간")
                 },
                 constraints: table =>
                 {
@@ -98,6 +74,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
                     UserId = table.Column<string>(maxLength: 36, nullable: false, comment: "사용자 식별자"),
                     Title = table.Column<string>(maxLength: 200, nullable: false, comment: "제목"),
                     State = table.Column<string>(maxLength: 200, nullable: false, comment: "상태"),
+                    Period = table.Column<string>(maxLength: 200, nullable: true, comment: "기간"),
                     Descriptoin = table.Column<string>(maxLength: 2000, nullable: true, comment: "설명")
                 },
                 constraints: table =>
@@ -156,7 +133,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
                     UserId = table.Column<string>(maxLength: 36, nullable: false, comment: "사용자 식별자"),
                     Provider = table.Column<string>(maxLength: 200, nullable: false, defaultValue: "Local", comment: "사용자 로그인 제공자"),
                     Secret = table.Column<string>(maxLength: 2000, nullable: false, comment: "비밀키; 비밀번호 해시"),
-                    ExpiredAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 29, 6, 44, 43, 106, DateTimeKind.Unspecified).AddTicks(4508), new TimeSpan(0, 0, 0, 0, 0)), comment: "만료시각"),
+                    ExpiredAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 7, 13, 4, 20, 58, 230, DateTimeKind.Unspecified).AddTicks(7648), new TimeSpan(0, 0, 0, 0, 0)), comment: "만료시각"),
                     RetryCount = table.Column<int>(nullable: false, defaultValue: 0, comment: "로그인 재시도 횟수"),
                     IsLocked = table.Column<bool>(nullable: false, defaultValue: false, comment: "로그인 잠김"),
                     LockedAt = table.Column<DateTimeOffset>(nullable: true, comment: "로그인 잠김 시각")
@@ -176,22 +153,20 @@ namespace CareerManagement.Data.SqlServer.Migrations
                 name: "CareerLink",
                 columns: table => new
                 {
-                    CareerId = table.Column<string>(maxLength: 36, nullable: false, comment: "경력 식별자"),
-                    LinkId = table.Column<string>(maxLength: 36, nullable: false, comment: "링크 식별자")
+                    Id = table.Column<string>(maxLength: 36, nullable: false, comment: "식별자"),
+                    Title = table.Column<string>(maxLength: 200, nullable: false, comment: "링크 제목"),
+                    Icon = table.Column<string>(maxLength: 200, nullable: true, comment: "아이콘"),
+                    Href = table.Column<string>(maxLength: 500, nullable: false, comment: "링크 주소"),
+                    Target = table.Column<string>(maxLength: 200, nullable: true, comment: "링크 대상"),
+                    CareerId = table.Column<string>(maxLength: 36, nullable: false, comment: "경력 식별자")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CareerLink", x => new { x.CareerId, x.LinkId });
+                    table.PrimaryKey("PK_CareerLink", x => x.Id);
                     table.ForeignKey(
                         name: "FK_CareerLink_Career_CareerId",
                         column: x => x.CareerId,
                         principalTable: "Career",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CareerLink_Link_LinkId",
-                        column: x => x.LinkId,
-                        principalTable: "Link",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -200,22 +175,20 @@ namespace CareerManagement.Data.SqlServer.Migrations
                 name: "EducationLink",
                 columns: table => new
                 {
-                    EducationId = table.Column<string>(maxLength: 36, nullable: false, comment: "교육 식별자"),
-                    LinkId = table.Column<string>(maxLength: 36, nullable: false, comment: "링크 식별자")
+                    Id = table.Column<string>(maxLength: 36, nullable: false, comment: "식별자"),
+                    Title = table.Column<string>(maxLength: 200, nullable: false, comment: "링크 제목"),
+                    Icon = table.Column<string>(maxLength: 200, nullable: true, comment: "아이콘"),
+                    Href = table.Column<string>(maxLength: 500, nullable: false, comment: "링크 주소"),
+                    Target = table.Column<string>(maxLength: 200, nullable: true, comment: "링크 대상"),
+                    EducationId = table.Column<string>(maxLength: 36, nullable: false, comment: "교육 식별자")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EducationLink", x => new { x.EducationId, x.LinkId });
+                    table.PrimaryKey("PK_EducationLink", x => x.Id);
                     table.ForeignKey(
                         name: "FK_EducationLink_Education_EducationId",
                         column: x => x.EducationId,
                         principalTable: "Education",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EducationLink_Link_LinkId",
-                        column: x => x.LinkId,
-                        principalTable: "Link",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -243,18 +216,16 @@ namespace CareerManagement.Data.SqlServer.Migrations
                 name: "PortfolioLink",
                 columns: table => new
                 {
-                    PortfolioId = table.Column<string>(maxLength: 36, nullable: false, comment: "포트폴리오 식별자"),
-                    LinkId = table.Column<string>(maxLength: 36, nullable: false, comment: "링크 식별자")
+                    Id = table.Column<string>(maxLength: 36, nullable: false, comment: "식별자"),
+                    Title = table.Column<string>(maxLength: 200, nullable: false, comment: "링크 제목"),
+                    Icon = table.Column<string>(maxLength: 200, nullable: true, comment: "아이콘"),
+                    Href = table.Column<string>(maxLength: 500, nullable: false, comment: "링크 주소"),
+                    Target = table.Column<string>(maxLength: 200, nullable: true, comment: "링크 대상"),
+                    PortfolioId = table.Column<string>(maxLength: 36, nullable: false, comment: "포트폴리오 식별자")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PortfolioLink", x => new { x.PortfolioId, x.LinkId });
-                    table.ForeignKey(
-                        name: "FK_PortfolioLink_Link_LinkId",
-                        column: x => x.LinkId,
-                        principalTable: "Link",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_PortfolioLink", x => x.Id);
                     table.ForeignKey(
                         name: "FK_PortfolioLink_Portfolio_PortfolioId",
                         column: x => x.PortfolioId,
@@ -267,22 +238,17 @@ namespace CareerManagement.Data.SqlServer.Migrations
                 name: "PortfolioTag",
                 columns: table => new
                 {
+                    Id = table.Column<string>(maxLength: 36, nullable: false, comment: "식별자"),
                     PortfolioId = table.Column<string>(maxLength: 36, nullable: false, comment: "포트폴리오 식별자"),
-                    TagId = table.Column<string>(maxLength: 36, nullable: false, comment: "태그 식별자")
+                    Name = table.Column<string>(maxLength: 200, nullable: false, comment: "태그")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PortfolioTag", x => new { x.PortfolioId, x.TagId });
+                    table.PrimaryKey("PK_PortfolioTag", x => x.Id);
                     table.ForeignKey(
                         name: "FK_PortfolioTag_Portfolio_PortfolioId",
                         column: x => x.PortfolioId,
                         principalTable: "Portfolio",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PortfolioTag_Tag_PortfolioId",
-                        column: x => x.PortfolioId,
-                        principalTable: "Tag",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -291,18 +257,16 @@ namespace CareerManagement.Data.SqlServer.Migrations
                 name: "ProfileLink",
                 columns: table => new
                 {
-                    ProfileId = table.Column<string>(maxLength: 36, nullable: false, comment: "프로필 식별자"),
-                    LinkId = table.Column<string>(maxLength: 36, nullable: false, comment: "링크 식별자")
+                    Id = table.Column<string>(maxLength: 36, nullable: false, comment: "식별자"),
+                    Title = table.Column<string>(maxLength: 200, nullable: false, comment: "링크 제목"),
+                    Icon = table.Column<string>(maxLength: 200, nullable: true, comment: "아이콘"),
+                    Href = table.Column<string>(maxLength: 500, nullable: false, comment: "링크 주소"),
+                    Target = table.Column<string>(maxLength: 200, nullable: true, comment: "링크 대상"),
+                    ProfileId = table.Column<string>(maxLength: 36, nullable: false, comment: "프로필 식별자")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProfileLink", x => new { x.ProfileId, x.LinkId });
-                    table.ForeignKey(
-                        name: "FK_ProfileLink_Link_LinkId",
-                        column: x => x.LinkId,
-                        principalTable: "Link",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_ProfileLink", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ProfileLink_Profile_ProfileId",
                         column: x => x.ProfileId,
@@ -337,9 +301,9 @@ namespace CareerManagement.Data.SqlServer.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CareerLink_LinkId",
+                name: "IX_CareerLink_CareerId",
                 table: "CareerLink",
-                column: "LinkId");
+                column: "CareerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Education_UserId",
@@ -347,9 +311,9 @@ namespace CareerManagement.Data.SqlServer.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EducationLink_LinkId",
+                name: "IX_EducationLink_EducationId",
                 table: "EducationLink",
-                column: "LinkId");
+                column: "EducationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Portfolio_UserId",
@@ -362,9 +326,14 @@ namespace CareerManagement.Data.SqlServer.Migrations
                 column: "PortfolioId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PortfolioLink_LinkId",
+                name: "IX_PortfolioLink_PortfolioId",
                 table: "PortfolioLink",
-                column: "LinkId");
+                column: "PortfolioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PortfolioTag_PortfolioId",
+                table: "PortfolioTag",
+                column: "PortfolioId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Profile_UserId",
@@ -373,9 +342,9 @@ namespace CareerManagement.Data.SqlServer.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProfileLink_LinkId",
+                name: "IX_ProfileLink_ProfileId",
                 table: "ProfileLink",
-                column: "LinkId");
+                column: "ProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Skill_UserId",
@@ -422,12 +391,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
 
             migrationBuilder.DropTable(
                 name: "Portfolio");
-
-            migrationBuilder.DropTable(
-                name: "Tag");
-
-            migrationBuilder.DropTable(
-                name: "Link");
 
             migrationBuilder.DropTable(
                 name: "Profile");

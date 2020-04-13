@@ -15,11 +15,17 @@ namespace CareerManagement.Data.Configurations
                 .IsRequired()
                 .HasMaxLength(StringLength.Identifier)
                 .HasComment("식별자")
+                .ValueGeneratedOnAdd()
                 ;
             b.Property(x => x.UserId)
                 .IsRequired()
                 .HasMaxLength(StringLength.Identifier)
                 .HasComment("사용자 식별자")
+                ;
+            b.Property(x => x.Name)
+                .IsRequired()
+                .HasMaxLength(StringLength.Name)
+                .HasComment("명칭")
                 ;
             b.Property(x => x.Icon)
                 .IsRequired(false)

@@ -4,14 +4,16 @@ using CareerManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CareerManagement.Data.SqlServer.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200413042058_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +67,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.CareerLink", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -108,7 +109,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.Education", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -150,7 +150,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.EducationLink", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -193,7 +192,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.Portfolio", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -236,7 +234,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.PortfolioFeature", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -263,7 +260,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.PortfolioLink", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -306,7 +302,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.PortfolioTag", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -333,7 +328,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.Profile", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -361,7 +355,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.ProfileLink", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -404,7 +397,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.Skill", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -412,12 +404,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
                     b.Property<string>("Icon")
                         .HasColumnType("nvarchar(200)")
                         .HasComment("아이콘")
-                        .HasMaxLength(200);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(200)")
-                        .HasComment("명칭")
                         .HasMaxLength(200);
 
                     b.Property<string>("UserId")
@@ -436,15 +422,9 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.SkillItem", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
-
-                    b.Property<string>("Descriptions")
-                        .HasColumnType("nvarchar(2000)")
-                        .HasComment("설명")
-                        .HasMaxLength(2000);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -474,7 +454,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.User", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("식별자")
                         .HasMaxLength(36);
@@ -510,7 +489,6 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.UserLogin", b =>
                 {
                     b.Property<string>("UserId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(36)")
                         .HasComment("사용자 식별자")
                         .HasMaxLength(36);
@@ -519,7 +497,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
                         .HasComment("만료시각")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 7, 13, 6, 12, 36, 727, DateTimeKind.Unspecified).AddTicks(3494), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 7, 13, 4, 20, 58, 230, DateTimeKind.Unspecified).AddTicks(7648), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsLocked")
                         .ValueGeneratedOnAdd()
@@ -622,7 +600,7 @@ namespace CareerManagement.Data.SqlServer.Migrations
             modelBuilder.Entity("CareerManagement.Entities.PortfolioTag", b =>
                 {
                     b.HasOne("CareerManagement.Entities.Portfolio", "Portfolio")
-                        .WithMany("PortfolioTags")
+                        .WithMany("Tags")
                         .HasForeignKey("PortfolioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

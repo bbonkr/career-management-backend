@@ -1,9 +1,9 @@
 ﻿namespace CareerManagement.Entities
 {
     /// <summary>
-    /// 기술 항목
+    /// 링크 기본 데이터 구조를 제공합니다.
     /// </summary>
-    public class SkillItem
+    public abstract class LinkBase
     {
         /// <summary>
         /// 식별자
@@ -11,22 +11,23 @@
         public string Id { get; set; }
 
         /// <summary>
-        /// 기술 식별자
+        /// 제목
         /// </summary>
-        public string SkillId { get; set; }
-        /// <summary>
-        /// 이름
-        /// </summary>
-        public string Name { get; set; }
-        /// <summary>
-        /// 점수
-        /// </summary>
-        public float Score { get; set; }
-        /// <summary>
-        /// 설명
-        /// </summary>
-        public string Descriptions { get; set; }
+        public string Title { get; set; }
 
-        public virtual Skill Skill { get; set; }
+        /// <summary>
+        /// 아이콘
+        /// </summary>
+        public string Icon { get; set; }
+
+        /// <summary>
+        /// 링크 주소
+        /// </summary>
+        public string Href { get; set; }
+
+        /// <summary>
+        /// 링크 대상
+        /// </summary>
+        public string Target { get; set; }
     }
 }

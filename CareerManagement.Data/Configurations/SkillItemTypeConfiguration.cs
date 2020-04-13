@@ -15,6 +15,7 @@ namespace CareerManagement.Data.Configurations
                 .IsRequired()
                 .HasMaxLength(StringLength.Identifier)
                 .HasComment("식별자")
+                .ValueGeneratedOnAdd()
                 ;
             b.Property(x => x.SkillId)
                 .IsRequired()
@@ -26,9 +27,14 @@ namespace CareerManagement.Data.Configurations
                 .HasMaxLength(StringLength.Name)
                 .HasComment("이름")
                 ;
+            b.Property(x => x.Descriptions)
+               .IsRequired(false)
+               .HasMaxLength(StringLength.Note)
+               .HasComment("설명")
+               ;
             b.Property(x => x.Score)
                 .IsRequired()
-                .HasDefaultValue(0)
+                .HasDefaultValue(0.0F)
                 .HasComment("점수")
                 ;
 

@@ -16,6 +16,10 @@ namespace CareerManagement.Entities
         /// </summary>
         public string UserId { get; set; }
         /// <summary>
+        /// 명칭
+        /// </summary>
+        public string Name { get; set; }
+        /// <summary>
         /// 아이콘
         /// </summary>
         public string Icon { get; set; }

@@ -9,24 +9,18 @@ namespace CareerManagement.Data.Configurations
         public void Configure(EntityTypeBuilder<ProfileLink> b)
         {
             b.ToTable("ProfileLink");
-            b.HasKey(x => new { x.ProfileId, x.LinkId });
+            b.HasKey(x => x.Id);
+
+            b.ConfigureLinkEntity();
 
             b.Property(x => x.ProfileId)
                 .IsRequired()
                 .HasMaxLength(StringLength.Identifier)
                 .HasComment("프로필 식별자")
                 ;
-            b.Property(x => x.LinkId)
-                .IsRequired()
-                .HasMaxLength(StringLength.Identifier)
-                .HasComment("링크 식별자")
-                ;
 
             b.HasOne(x => x.Profile).WithMany(x => x.Links)
                 .HasForeignKey(x => x.ProfileId)
-                .OnDelete(DeleteBehavior.Cascade);
-            b.HasOne(x => x.Link).WithMany(x => x.Profiles)
-                .HasForeignKey(x => x.LinkId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
 

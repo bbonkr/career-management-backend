@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace CareerManagement.Entities
 {
@@ -37,11 +38,19 @@ namespace CareerManagement.Entities
         /// </summary>
         public virtual IList<PortfolioFeature> Features { get; set; }
         /// <summary>
-        /// 태그
+        /// 태그 (관리용)
         /// </summary>
-        public virtual IList<PortfolioTag> Tags { get; set; }
+        public virtual IList<PortfolioTag> PortfolioTags { get; set; }
 
+        /// <summary>
+        /// 링크
+        /// </summary>
         public virtual IList<PortfolioLink> Links { get; set; }
+
+        /// <summary>
+        /// 태그 (출력용)
+        /// </summary>
+        public virtual IList<string> Tags { get; set; }
 
         /// <summary>
         /// 사용자
